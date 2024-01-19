@@ -212,7 +212,10 @@ def create(
     except ArchiveExportError as exception:
         echo.echo_critical(f'failed to write the archive file. Exception: {exception}')
     else:
-        echo.echo_success(f'wrote the export archive file to {output_file}')
+        if kwargs.get('test_run', False):
+            echo.echo_success(f'test run successful. No archive file created.')
+        else:
+            echo.echo_success(f'wrote the export archive file to {output_file}')
 
 
 @verdi_archive.command('migrate')
